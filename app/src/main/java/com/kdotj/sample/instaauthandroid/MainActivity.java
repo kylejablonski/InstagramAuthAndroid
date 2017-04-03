@@ -13,9 +13,24 @@ public class MainActivity extends AppCompatActivity implements TokenCallback {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    // CLIENT ID from instagram
     String clientId = "<YOUR_API_KEY_HERE>";
+
+    // Your website
     String redirectUri = "<YOUR_WEBSITE_REDIRECT_URI>";
+
+    // website http:// or https://
     String redirectProtocol = "<http:// or https://>";
+
+    // Scopes for the login see https://www.instagram.com/developer/authorization/
+    String [] scopes = new String [] {
+            "basic", // to read a user’s profile info and media
+            "public_content", // to read any public profile info and media on a user’s behalf
+            "follower_list", // to read the list of followers and followed-by users
+            "comments", // to post and delete comments on a user’s behalf
+            "relationships", // to follow and unfollow accounts on a user’s behalf
+            "likes" // to like and unlike media on a user’s behalf
+    };
 
     private AppCompatTextView mTvStatus;
     public InstagramAuthFragment instagramAuthFragment;
@@ -31,9 +46,10 @@ public class MainActivity extends AppCompatActivity implements TokenCallback {
             Load a new InstagramAuthFragment
          */
         Bundle args = new Bundle();
-        args.putString(InstagramAuthFragment.EXTRA_REDIRECT_URI, redirectUri);
         args.putString(InstagramAuthFragment.EXTRA_CLIENT_ID, clientId);
+        args.putString(InstagramAuthFragment.EXTRA_REDIRECT_URI, redirectUri);
         args.putString(InstagramAuthFragment.EXTRA_REDIRECT_PROTOCOL, redirectProtocol);
+        args.putStringArray(InstagramAuthFragment.EXTRA_SCOPES, scopes);
         instagramAuthFragment = InstagramAuthFragment.newInstance(args);
         if(savedInstanceState == null) {
             getSupportFragmentManager()

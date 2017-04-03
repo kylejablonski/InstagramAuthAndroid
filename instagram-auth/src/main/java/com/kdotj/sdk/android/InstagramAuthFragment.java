@@ -41,6 +41,7 @@ public final class InstagramAuthFragment extends Fragment {
     private static final String PARAM_CLIENT_ID = "client_id=";
     private static final String PARAM_REDIRECT_URI = "&redirect_uri=";
     private static final String PARAM_RESPONSE_TYPE = "&response_type=token";
+    private static final String PARAM_SCOPE = "&scope=";
     private static final String DEFAULT_PROTOCOL = "http://";
 
 
@@ -58,6 +59,13 @@ public final class InstagramAuthFragment extends Fragment {
      * Extra for passing protocol for redirect uri
      */
     public static final String EXTRA_REDIRECT_PROTOCOL = "protocol";
+
+    /**
+     * Extra for passing in the login scope:
+     * values: basic, public_content, follower_list, comments, relationships, likes
+     * must pass in via String []
+     */
+    public static final String EXTRA_SCOPES = "scopes";
 
     /*
         Member Variables
@@ -81,6 +89,11 @@ public final class InstagramAuthFragment extends Fragment {
      * Redirect Uri protocol
      */
     private String strRedirectProtocol;
+
+    /**
+     * Array containing scopes to append onto the URL
+     */
+    private String [] scopes;
 
     /**
      * WebView responsible for loading the {@link #strOauthURL}
@@ -167,6 +180,7 @@ public final class InstagramAuthFragment extends Fragment {
         strClientId = args.getString(EXTRA_CLIENT_ID);
         strRedirectUri = args.getString(EXTRA_REDIRECT_URI);
         strRedirectProtocol = args.getString(EXTRA_REDIRECT_PROTOCOL);
+        scopes = args.getStringArray(EXTRA_SCOPES);
 
         if(TextUtils.isEmpty(strClientId) || TextUtils.isEmpty(strRedirectUri)){
             throw new IllegalArgumentException("Must specify redirect uri & client id to use the SDK");
@@ -179,6 +193,18 @@ public final class InstagramAuthFragment extends Fragment {
         stringBuilder.append(TextUtils.isEmpty(strRedirectProtocol) ? strRedirectProtocol : DEFAULT_PROTOCOL );
         stringBuilder.append(strRedirectUri);
         stringBuilder.append(PARAM_RESPONSE_TYPE);
+
+        // Add the scope to the login
+        if(scopes != null && scopes.length > 0) {
+            stringBuilder.append(PARAM_SCOPE);
+            for (int i = 0; i < scopes.length; i++) {
+                String scope = scopes[i];
+                stringBuilder.append(scope);
+                if(i != scopes.length - 1){
+                    stringBuilder.append("+");
+                }
+            }
+        }
 
         return stringBuilder.toString();
 
