@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements TokenCallback{
         args.putString(InstagramAuthFragment.EXTRA_CLIENT_ID, "1234123412341234234323"); // client id from instagram
         args.putString(InstagramAuthFragment.EXTRA_REDIRECT_URI, "www.google.com"); // your website uri
         args.putString(InstagramAuthFragment.EXTRA_REDIRECT_PROTOCOL, "http://"); // protocol for your website
+        args.putStringArray(InstagramAuthFragment.EXTRA_SCOPES, new String []{"basic","public_content"});
         instagramAuthFragment = InstagramAuthFragment.newInstance(args);
 
         getSupportFragmentManager()
