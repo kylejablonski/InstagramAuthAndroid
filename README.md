@@ -1,6 +1,8 @@
 # InstagramAuthAndroid
 A wrapper library for logging into instagram via the Client side authorization flow on Android
 
+[ ![Download](https://api.bintray.com/packages/kylejablonski/maven/instagram-auth/images/download.svg) ](https://bintray.com/kylejablonski/maven/instagram-auth/_latestVersion)
+
 Features:
 
 - Includes a Fragment named InstagramAuthFragment, which hosts a WebView and facilates authorizing with Instagram on Android in an easy way.
