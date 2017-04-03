@@ -27,7 +27,7 @@ allprojects {
 ```gradle
 dependencies {
    // includes the .aar file from the repository
-    compile 'com.kdotj.sdk.android:instagram-auth:1.0.0@aar'
+    compile 'com.kdotj.sdk.android:instagram-auth:X.X.X@aar'
 
 }
 ```
